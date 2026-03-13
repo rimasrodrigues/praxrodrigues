@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="referrer" content="no-referrer"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PORTFÓLIO // RIMAS PRAXEDES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+/* ─────────────────────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────────────────────── */
+:root {
+  --bg:        #030e18;
+  --panel:     #00202c;
+  --border:    #12203b;
+  --paper:     #dff1f9;
+  --muted:     #10525e;
+  --ocean:     #10525e;
+  --forest:    #00674f;
+  --teal:      #00a59e;
+  --green:     #14f48f;
+  --lgreen:    #88ff7b;
+
+  --mono: 'Space Mono', 'Courier New', monospace;
+  --cond: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+}
+
+/* ─────────────────────────────────────────────────────────
+   RESET
+───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ─────────────────────────────────────────────────────────
+   BODY — grid + grain
+───────────────────────────────────────────────────────── */
+body {
+  background-color: var(--bg);
+  color: var(--paper);
+  font-family: var(--mono);
+  line-height: 1.7;
+  background-image:
+    linear-gradient(rgba(18,32,59,.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18,32,59,.55) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: .55;
+  mix-blend-mode: overlay;
+}
+
+/* ─────────────────────────────────────────────────────────
+   STARS — scattered fixed dots
+───────────────────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 8%  14%, var(--green)  0%, transparent 100%),
+    radial-gradient(1.0px 1.0px at 23% 7%,  var(--teal)   0%, transparent 100%),
+    radial-gradient(1.8px 1.8px at 41% 19%, var(--lgreen) 0%, transparent 100%),
+    radial-gradient(1.0px 1.0px at 58% 5%,  var(--green)  0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 74% 12%, var(--teal)   0%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 89% 22%, var(--lgreen) 0%, transparent 100%),
+    radial-gradient(1.0px 1.0px at 15% 82%, var(--teal)   0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 33% 91%, var(--green)  0%, transparent 100%),
+    radial-gradient(1.0px 1.0px at 67% 87%, var(--lgreen) 0%, transparent 100%),
+    radial-gradient(1.8px 1.8px at 92% 78%, var(--green)  0%, transparent 100%),
+    radial-gradient(1.0px 1.0px at 50% 50%, var(--teal)   0%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 3%  55%, var(--lgreen) 0%, transparent 100%);
+  opacity: .45;
+}
+
+/* ─────────────────────────────────────────────────────────
+   ORBITAL DECORATION — top-right SVG
+───────────────────────────────────────────────────────── */
+.orbital-bg {
+  position: fixed;
+  top: -80px; right: -100px;
+  width: 480px; height: 480px;
+  pointer-events: none; z-index: 0;
+  opacity: .12;
+}
+
+/* ── Asteroid — bottom-left ── */
+.asteroid-bg {
+  position: fixed;
+  bottom: 60px; left: -40px;
+  width: 280px; height: 280px;
+  pointer-events: none; z-index: 0;
+  opacity: .09;
+  animation: asteroid-drift 28s ease-in-out infinite alternate;
+}
+
+/* ── Rocket — mid-left ── */
+.rocket-bg {
+  position: fixed;
+  top: 38%; left: 18px;
+  width: 72px; height: 160px;
+  pointer-events: none; z-index: 0;
+  opacity: .13;
+  animation: rocket-float 6s ease-in-out infinite alternate;
+}
+
+@keyframes asteroid-drift {
+  from { transform: translate(0, 0) rotate(0deg);   }
+  to   { transform: translate(18px, -22px) rotate(8deg); }
+}
+@keyframes rocket-float {
+  from { transform: translateY(0px);   }
+  to   { transform: translateY(-14px); }
+}
+
+/* ── Planet with rings — top-left mid scroll ── */
+.planet-bg {
+  position: fixed;
+  top: 42%; left: -60px;
+  width: 320px; height: 320px;
+  pointer-events: none; z-index: 0;
+  opacity: .1;
+  animation: planet-drift 40s ease-in-out infinite alternate;
+}
+@keyframes planet-drift {
+  from { transform: translateY(0px) rotate(-3deg); }
+  to   { transform: translateY(-30px) rotate(3deg); }
+}
+
+/* ── Black hole — bottom-right ── */
+.blackhole-bg {
+  position: fixed;
+  bottom: -80px; right: -80px;
+  width: 360px; height: 360px;
+  pointer-events: none; z-index: 0;
+  opacity: .1;
+  animation: blackhole-pulse 12s ease-in-out infinite alternate;
+}
+@keyframes blackhole-pulse {
+  from { transform: scale(1) rotate(0deg); }
+  to   { transform: scale(1.08) rotate(6deg); }
+}
+
+/* ── Neutron star / pulsar — center-right ── */
+.pulsar-bg {
+  position: fixed;
+  top: 68%; right: 12px;
+  width: 110px; height: 110px;
+  pointer-events: none; z-index: 0;
+  opacity: .14;
+  animation: pulsar-spin 8s linear infinite;
+}
+@keyframes pulsar-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─────────────────────────────────────────────────────────
+   LAYOUT
+───────────────────────────────────────────────────────── */
+.container {
+  position: relative; z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   STICKY HEADER
+───────────────────────────────────────────────────────── */
+.sys-header {
+  position: sticky; top: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 30px;
+  height: 52px;
+  background: rgba(3,14,24,.96);
+  border-bottom: 2px solid var(--green);
+  backdrop-filter: blur(8px);
+}
+
+.sys-header::before {
+  content: '';
+  position: absolute; bottom: -6px; left: 0;
+  width: 100%; height: 4px;
+  background: linear-gradient(90deg, var(--green), transparent);
+  opacity: .35;
+}
+
+.sys-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--green);
+  text-transform: uppercase;
+}
+.sys-title span { color: var(--muted); }
+
+/* ─────────────────────────────────────────────────────────
+   PROJECT CARD
+───────────────────────────────────────────────────────── */
+.project-card {
+  position: relative;
+  background: rgba(0,32,44,.72);
+  border: 1px solid var(--border);
+  padding: 50px;
+  margin-bottom: 80px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.55);
+  overflow: visible;
+}
+
+/* corner dots */
+.project-card::before {
+  content: '';
+  position: absolute; top: -5px; left: -5px;
+  width: 10px; height: 10px;
+  background: var(--lgreen);
+  box-shadow: 0 0 12px var(--lgreen);
+}
+.project-card::after {
+  content: '';
+  position: absolute; bottom: -5px; right: -5px;
+  width: 10px; height: 10px;
+  background: var(--teal);
+}
+
+/* accent bar — left edge */
+.project-card > .accent-bar {
+  position: absolute; top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(to bottom, var(--green), var(--teal), transparent);
+  opacity: .6;
+}
+
+/* ─────────────────────────────────────────────────────────
+   PROJECT HEADER
+───────────────────────────────────────────────────────── */
+.project-header {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px dashed rgba(18,32,59,.8);
+}
+
+.project-header h1 {
+  font-family: var(--cond);
+  font-size: clamp(3.4rem, 8vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: .9;
+  color: var(--paper);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.project-header h1 span.accent { color: var(--green); }
+
+.project-header .subtitle {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--teal);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────────────────
+   TAGS
+───────────────────────────────────────────────────────── */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--green);
+  border: 1px solid var(--forest);
+  padding: 5px 12px;
+  background: transparent;
+  transition: border-color .2s, color .2s;
+}
+.tag:hover { border-color: var(--green); color: var(--lgreen); }
+
+/* ─────────────────────────────────────────────────────────
+   GRID LAYOUTS
+───────────────────────────────────────────────────────── */
+.grid-2-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-top: 40px;
+}
+
+.gallery-grid   { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+.gallery-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 40px; }
+.gallery-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 30px; }
+
+/* ─────────────────────────────────────────────────────────
+   TEXT PANEL
+───────────────────────────────────────────────────────── */
+.text-panel { position: relative; }
+
+.text-panel h2 {
+  display: inline-block;
+  font-family: var(--cond);
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  background: var(--bg);
+  border: 1px solid var(--forest);
+  padding: 3px 12px 1px;
+  margin-bottom: 18px;
+  line-height: 1.2;
+}
+
+.text-panel p {
+  /* Space Mono — corpo de texto */
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--paper);
+  opacity: .88;
+  margin-bottom: 16px;
+  line-height: 1.75;
+}
+
+.text-panel p:last-child { margin-bottom: 0; }
+
+/* ─────────────────────────────────────────────────────────
+   HIGHLIGHT BOX
+───────────────────────────────────────────────────────── */
+.highlight-box {
+  background: rgba(20,244,143,.04);
+  border-left: 3px solid var(--green);
+  padding: 16px 18px;
+  margin: 18px 0;
+}
+.highlight-box p {
+  font-size: 12.5px;
+  font-style: italic;
+  opacity: .9;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────────
+   IMAGES
+───────────────────────────────────────────────────────── */
+.img-fluid {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  transition: border-color .25s, box-shadow .25s;
+}
+.img-fluid:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 0 1px var(--green), 0 6px 24px rgba(20,244,143,.12);
+}
+
+.img-contain {
+  object-fit: contain !important;
+  background: rgba(0,32,44,.6);
+  padding: 14px;
+}
+
+.img-continuous {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0; padding: 0;
+  border: none;
+}
+
+.continuous-wrapper {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  transition: border-color .25s;
+  overflow: hidden;
+}
+.continuous-wrapper:hover { border-color: var(--green); }
+
+/* ─────────────────────────────────────────────────────────
+   SECTION DIVIDER — orbital style
+───────────────────────────────────────────────────────── */
+.section-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 50px 0 30px;
+}
+.section-divider::before, .section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.section-divider span {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.section-divider::before { background: linear-gradient(to right, transparent, var(--border)); }
+.section-divider::after  { background: linear-gradient(to left, transparent, var(--border)); }
+
+/* ─────────────────────────────────────────────────────────
+   HERO — Sobre / Skills
+───────────────────────────────────────────────────────── */
+.hero-name {
+  font-family: var(--cond);
+  font-size: clamp(5rem, 13vw, 9.5rem);
+  font-weight: 900;
+  letter-spacing: -3px;
+  line-height: .88;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin-bottom: 24px;
+}
+.hero-name .line2 { color: var(--green); }
+
+.hero-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--green);
+  background: rgba(20,244,143,.07);
+  border-left: 4px solid var(--green);
+  padding: 8px 18px 8px 14px;
+  margin-bottom: 30px;
+}
+.hero-role::before { content: '>'; color: var(--muted); }
+
+/* skill item */
+.skill-item {
+  border-left: 2px solid var(--teal);
+  padding-left: 16px;
+  margin-bottom: 22px;
+}
+.skill-item:last-child { margin-bottom: 0; }
+.skill-item h3 {
+  /* Barlow Condensed 900 — subtítulo de skill */
+  font-family: var(--cond);
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--green);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  line-height: 1.1;
+}
+.skill-item p {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--paper);
+  opacity: .7;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CONTACT
+───────────────────────────────────────────────────────── */
+.contact-section {
+  text-align: center;
+}
+.contact-title {
+  font-family: var(--cond);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin-bottom: 8px;
+}
+.contact-title span { color: var(--muted); font-size: .6em; }
+.contact-sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--teal);
+  margin-bottom: 36px;
+}
+
+.contact-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--green);
+  text-decoration: none;
+  border: 1px solid var(--teal);
+  background: rgba(0,32,44,.5);
+  padding: 14px 22px;
+  position: relative;
+  transition: all .25s;
+  overflow: hidden;
+}
+.contact-btn::before {
+  content: '›';
+  color: var(--muted);
+  font-size: 16px;
+  transition: color .25s;
+}
+.contact-btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s;
+  z-index: -1;
+}
+.contact-btn:hover {
+  color: var(--bg);
+  border-color: var(--green);
+  box-shadow: 0 0 20px rgba(20,244,143,.25);
+}
+.contact-btn:hover::before { color: var(--bg); }
+.contact-btn:hover::after  { transform: scaleX(1); }
+
+/* ─────────────────────────────────────────────────────────
+   COORDINATE LABEL — small HUD-style annotation
+───────────────────────────────────────────────────────── */
+.coord {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  opacity: .55;
+}
+
+/* page counter (bottom right of each card) */
+.page-num {
+  position: absolute;
+  bottom: 16px; right: 20px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  opacity: .45;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .grid-2-col,
+  .gallery-grid,
+  .gallery-grid-3,
+  .gallery-grid-4 {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .project-card { padding: 30px 22px; }
+  .sys-header { flex-direction: column; gap: 4px; height: auto; padding: 12px 20px; }
+  .container { padding: 40px 16px 80px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Orbital decoration — top-right ── -->
+<svg class="orbital-bg" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <ellipse cx="240" cy="240" rx="220" ry="80" fill="none" stroke="#00a59e" stroke-width="1.5" stroke-dasharray="10,8"/>
+  <ellipse cx="240" cy="240" rx="150" ry="54" fill="none" stroke="#00a59e" stroke-width="1" stroke-dasharray="6,6"/>
+  <circle  cx="240" cy="240" r="36" fill="#12203b"/>
+  <circle  cx="240" cy="240" r="22" fill="#10525e"/>
+  <circle  cx="240" cy="240" r="10" fill="#00a59e"/>
+  <circle  cx="80"  cy="195" r="3"  fill="#14f48f" opacity=".7"/>
+  <circle  cx="400" cy="285" r="2"  fill="#88ff7b" opacity=".6"/>
+  <circle  cx="320" cy="160" r="2.5" fill="#14f48f" opacity=".5"/>
+</svg>
+
+<!-- ── Asteroid — bottom-left ── -->
+<svg class="asteroid-bg" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- corpo irregular do asteroide -->
+  <path d="M140 40 C165 38 188 52 200 72 C218 96 222 126 210 150 C198 174 180 192 158 200 C136 208 110 206 92 194 C70 180 56 158 58 134 C60 110 72 88 90 72 C108 56 120 42 140 40Z"
+        fill="#10525e" opacity=".8"/>
+  <!-- cratera 1 -->
+  <ellipse cx="130" cy="110" rx="18" ry="12" fill="none" stroke="#00a59e" stroke-width="1.5" opacity=".6"/>
+  <!-- cratera 2 -->
+  <ellipse cx="165" cy="155" rx="12" ry="8" fill="none" stroke="#14f48f" stroke-width="1" opacity=".5"/>
+  <!-- cratera 3 pequena -->
+  <circle cx="110" cy="155" r="7" fill="none" stroke="#00a59e" stroke-width="1" opacity=".4"/>
+  <!-- highlight superfície -->
+  <path d="M100 75 C115 65 138 62 155 70" fill="none" stroke="#dff1f9" stroke-width="1.5" stroke-linecap="round" opacity=".25"/>
+  <!-- debris / fragmentos ao redor -->
+  <circle cx="228" cy="95"  r="6"  fill="#10525e" opacity=".7"/>
+  <circle cx="55"  cy="175" r="4"  fill="#10525e" opacity=".6"/>
+  <circle cx="215" cy="175" r="3"  fill="#10525e" opacity=".5"/>
+  <circle cx="72"  cy="90"  r="5"  fill="#12203b" opacity=".7"/>
+  <circle cx="240" cy="150" r="2.5" fill="#00a59e" opacity=".4"/>
+  <!-- rastro de trajetória pontilhado -->
+  <line x1="240" y1="60" x2="200" y2="72" stroke="#00a59e" stroke-width="1" stroke-dasharray="4,5" opacity=".3"/>
+</svg>
+
+<!-- ── Rocket — mid-left ── -->
+<svg class="rocket-bg" viewBox="0 0 72 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- chama do motor -->
+  <ellipse cx="36" cy="148" rx="10" ry="16" fill="#14f48f" opacity=".5"/>
+  <ellipse cx="36" cy="145" rx="6"  ry="10" fill="#88ff7b" opacity=".6"/>
+  <!-- corpo do foguete -->
+  <rect x="22" y="60" width="28" height="72" rx="4" fill="#10525e"/>
+  <!-- nariz cônico -->
+  <path d="M22 60 Q36 10 50 60Z" fill="#00a59e"/>
+  <!-- janela / vigia -->
+  <circle cx="36" cy="82" r="8" fill="#030e18"/>
+  <circle cx="36" cy="82" r="5" fill="#12203b"/>
+  <circle cx="36" cy="82" r="2.5" fill="#00a59e" opacity=".8"/>
+  <!-- asa esquerda -->
+  <path d="M22 100 L8 128 L22 120Z" fill="#00674f"/>
+  <!-- asa direita -->
+  <path d="M50 100 L64 128 L50 120Z" fill="#00674f"/>
+  <!-- detalhe linha central -->
+  <line x1="36" y1="64" x2="36" y2="128" stroke="#00a59e" stroke-width="1" opacity=".3"/>
+  <!-- janelinha destaque -->
+  <circle cx="33" cy="80" r="1.5" fill="#14f48f" opacity=".6"/>
+</svg>
+
+<!-- ── Planet with rings — mid-left ── -->
+<svg class="planet-bg" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- anel externo -->
+  <ellipse cx="160" cy="160" rx="148" ry="38" fill="none" stroke="#00a59e" stroke-width="2.5" opacity=".5"/>
+  <!-- anel interno -->
+  <ellipse cx="160" cy="160" rx="112" ry="28" fill="none" stroke="#10525e" stroke-width="1.5" opacity=".6"/>
+  <!-- sombra do anel atrás do planeta -->
+  <ellipse cx="160" cy="163" rx="75" ry="19" fill="#030e18" opacity=".9"/>
+  <!-- corpo do planeta -->
+  <circle cx="160" cy="160" r="74" fill="#12203b"/>
+  <!-- faixas atmosféricas -->
+  <ellipse cx="160" cy="138" rx="72" ry="14" fill="#10525e" opacity=".4"/>
+  <ellipse cx="160" cy="162" rx="72" ry="10" fill="#00674f" opacity=".3"/>
+  <ellipse cx="160" cy="182" rx="72" ry="8"  fill="#10525e" opacity=".25"/>
+  <!-- polar highlight -->
+  <ellipse cx="148" cy="104" rx="22" ry="14" fill="#dff1f9" opacity=".06"/>
+  <!-- anel na frente -->
+  <path d="M12 160 Q160 118 308 160" fill="none" stroke="#00a59e" stroke-width="2" opacity=".4"/>
+  <path d="M48 160 Q160 128 272 160" fill="none" stroke="#10525e" stroke-width="1.2" opacity=".5"/>
+</svg>
+
+<!-- ── Black hole — bottom-right ── -->
+<svg class="blackhole-bg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- disco de acreção externo -->
+  <ellipse cx="180" cy="180" rx="168" ry="42" fill="none" stroke="#00a59e"  stroke-width="1.5" opacity=".35"/>
+  <ellipse cx="180" cy="180" rx="140" ry="35" fill="none" stroke="#00674f"  stroke-width="1"   opacity=".4"/>
+  <ellipse cx="180" cy="180" rx="112" ry="28" fill="none" stroke="#14f48f"  stroke-width="2"   opacity=".3"/>
+  <ellipse cx="180" cy="180" rx="84"  ry="21" fill="none" stroke="#88ff7b"  stroke-width="1.5" opacity=".25"/>
+  <!-- ergosfera -->
+  <circle cx="180" cy="180" r="68" fill="#030e18" opacity=".95"/>
+  <circle cx="180" cy="180" r="56" fill="#00202c" opacity=".9"/>
+  <!-- horizonte de eventos -->
+  <circle cx="180" cy="180" r="42" fill="#030e18"/>
+  <!-- anel de fótons -->
+  <circle cx="180" cy="180" r="46" fill="none" stroke="#14f48f" stroke-width="1.5" opacity=".5" stroke-dasharray="3,4"/>
+  <!-- jets polares -->
+  <line x1="180" y1="134" x2="180" y2="20"  stroke="#00a59e" stroke-width="1.5" stroke-dasharray="6,5" opacity=".4"/>
+  <line x1="180" y1="226" x2="180" y2="340" stroke="#00a59e" stroke-width="1.5" stroke-dasharray="6,5" opacity=".4"/>
+  <!-- partículas -->
+  <circle cx="110" cy="152" r="2"   fill="#14f48f" opacity=".5"/>
+  <circle cx="250" cy="210" r="1.5" fill="#88ff7b" opacity=".45"/>
+  <circle cx="80"  cy="188" r="1.5" fill="#00a59e" opacity=".4"/>
+</svg>
+
+<!-- ── Pulsar / neutron star — center-right ── -->
+<svg class="pulsar-bg" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- raios do pulsar -->
+  <line x1="55" y1="0"   x2="55" y2="22"  stroke="#14f48f" stroke-width="1.5" opacity=".7"/>
+  <line x1="55" y1="88"  x2="55" y2="110" stroke="#14f48f" stroke-width="1.5" opacity=".7"/>
+  <line x1="0"  y1="55"  x2="22" y2="55"  stroke="#14f48f" stroke-width="1.5" opacity=".7"/>
+  <line x1="88" y1="55"  x2="110" y2="55" stroke="#14f48f" stroke-width="1.5" opacity=".7"/>
+  <line x1="12" y1="12"  x2="28" y2="28"  stroke="#00a59e" stroke-width="1" opacity=".5"/>
+  <line x1="82" y1="82"  x2="98" y2="98"  stroke="#00a59e" stroke-width="1" opacity=".5"/>
+  <line x1="98" y1="12"  x2="82" y2="28"  stroke="#00a59e" stroke-width="1" opacity=".5"/>
+  <line x1="12" y1="98"  x2="28" y2="82"  stroke="#00a59e" stroke-width="1" opacity=".5"/>
+  <!-- campo magnético elíptico -->
+  <ellipse cx="55" cy="55" rx="30" ry="14" fill="none" stroke="#10525e" stroke-width="1" stroke-dasharray="3,3" opacity=".6"/>
+  <ellipse cx="55" cy="55" rx="14" ry="30" fill="none" stroke="#10525e" stroke-width="1" stroke-dasharray="3,3" opacity=".6"/>
+  <!-- núcleo -->
+  <circle cx="55" cy="55" r="11" fill="#12203b"/>
+  <circle cx="55" cy="55" r="7"  fill="#10525e"/>
+  <circle cx="55" cy="55" r="4"  fill="#00a59e"/>
+  <circle cx="55" cy="55" r="2"  fill="#14f48f" opacity=".9"/>
+</svg>
+
+<!-- ══════════════════════════════════════════
+     STICKY HEADER
+═══════════════════════════════════════════ -->
+<header class="sys-header">
+  <div class="sys-title">PORTFÓLIO <span>// RIMAS PRAXEDES</span></div>
+  <div class="sys-title">DESIGNER GRÁFICO <span>// BLM-PA-BR</span></div>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════════
+       HERO — APRESENTAÇÃO
+  ═══════════════════════════════════════════ -->
+  <section class="project-card" style="border-color: var(--green); margin-bottom: 80px;">
+    <div class="accent-bar"></div>
+
+    <div style="padding-bottom: 30px; margin-bottom: 40px; border-bottom: 1px dashed rgba(18,32,59,.8);">
+      <div class="coord" style="margin-bottom: 14px;">COORD // BLM-PA-BR — 01°27'S 48°29'W</div>
+      <div class="hero-name">
+        Rimas<br>
+        <span class="line2">Praxedes</span>
+      </div>
+      <div class="hero-role">DESIGNER GRÁFICO_</div>
+    </div>
+
+    <div class="grid-2-col" style="margin-top: 0;">
+      <div class="text-panel">
+        <h2>// Sobre Mim</h2>
+        <p>Designer gráfico com quase 10 anos de experiência intercalando projetos freelance e trabalhos formais. Traduzo ideias em visuais estratégicos e criativos, com foco em identidade visual, ilustração e conteúdo para redes sociais.</p>
+        <p>Já criei soluções visuais para instituições de ensino, marcas pessoais e pequenos empreendimentos — unindo sempre a estética a um propósito funcional e comunicativo claro.</p>
+      </div>
+      <div class="text-panel">
+        <h2>// Core Skills</h2>
+        <div class="skill-item">
+          <h3>01. Identidade Visual &amp; Branding</h3>
+          <p>Construção de sistemas visuais coerentes e estratégicos.</p>
+        </div>
+        <div class="skill-item">
+          <h3>02. Direção de Arte &amp; IA</h3>
+          <p>Concepção visual utilizando a tecnologia como aliada criativa.</p>
+        </div>
+        <div class="skill-item">
+          <h3>03. Ilustração Autoral</h3>
+          <p>Desenvolvimento de linguagens ilustradas adaptáveis e autorais.</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-num">SYS::00</div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       PROJETO 01 — CAMILA MENEZES
+  ═══════════════════════════════════════════ -->
+  <article class="project-card">
+    <div class="accent-bar"></div>
+
+    <header class="project-header">
+      <div class="coord" style="margin-bottom: 10px;">SYS::01 // IDENTIDADE VISUAL E BRANDING</div>
+      <h1>Camila <span class="accent">Menezes</span></h1>
+      <span class="subtitle">Consultora de Bem-Estar</span>
+      <div class="tags">
+        <span class="tag">Estratégia de Marca</span>
+        <span class="tag">Identidade Visual</span>
+        <span class="tag">Aplicações Digitais e Impressas</span>
+      </div>
+    </header>
+
+    <!-- Capa -->
+    <div style="margin-bottom: 40px;">
+      <img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/30368f166646063.641b9aaa256b5.png&output=webp&q=90"
+           alt="Capa Projeto Camila Menezes" class="img-fluid"/>
+    </div>
+
+    <div class="grid-2-col">
+      <div class="text-panel">
+        <h2>01. O Problema // Contexto</h2>
+        <p>Ao iniciar sua atuação como consultora de bem-estar, Camila precisava construir uma presença profissional independente para comunicar seus serviços em redes sociais e eventos. Apesar de possuir propósito claro e experiência pessoal, não havia ainda uma identidade visual capaz de traduzir sua essência e posicionamento.</p>
+        <div class="highlight-box">
+          <p><strong>Desafio:</strong> A comunicação precisava equilibrar duas características centrais da marca pessoal: força e sofisticação profissional, sem perder o aspecto acolhedor e cuidador associado ao universo do bem-estar.</p>
+        </div>
+      </div>
+      <div class="text-panel">
+        <h2>02. Processo e Decisões</h2>
+        <p>O processo iniciou com a definição da personalidade da marca, entendendo Camila como uma figura que une firmeza e empatia. Foram exploradas referências ligadas ao bem-estar natural, feminilidade contemporânea e comunicação acolhedora.</p>
+        <p>A tipografia serifada <em>Tan Pearl</em> foi escolhida para transmitir sofisticação e confiança. A margarida foi adotada como elemento gráfico central. A paleta cromática equilibra naturalidade e elegância: tons de verde reforçam bem-estar e credibilidade, enquanto o rosé suave introduz delicadeza e humanidade.</p>
+      </div>
+    </div>
+
+    <div class="gallery-grid">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/91a71f166646063.641b9aaa24a30.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/91a71f166646063.641b9aaa24a30.png&output=webp&q=90" alt="Conceito Visual" class="img-fluid"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/49b94b166646063.641b9aaa26423.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/49b94b166646063.641b9aaa26423.png&output=webp&q=90" alt="Construção do Logotipo" class="img-fluid"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/28d683166646063.641b9aaa27ea9.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/28d683166646063.641b9aaa27ea9.png&output=webp&q=90" alt="Paleta de Cores e Tipografia" class="img-fluid"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/750881166646063.641b9aaa27206.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/750881166646063.641b9aaa27206.png&output=webp&q=90" alt="Símbolos e Elementos da Marca" class="img-fluid"/></a>
+    </div>
+
+    <div class="section-divider"><span>03 // Resultado e Impacto</span></div>
+
+    <div class="text-panel">
+      <p>A solução visual foi estruturada como um sistema versátil. A identidade visual consolidou uma presença profissional coerente com o posicionamento da consultora, permitindo iniciar sua comunicação digital e institucional com maior clareza e consistência visual.</p>
+    </div>
+
+    <div style="margin: 30px 0;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/2ecf88166646063.641b9aaa2ab6e.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/2ecf88166646063.641b9aaa2ab6e.png&output=webp&q=90" alt="Padrão Visual" class="img-fluid"/></a>
+    </div>
+
+    <div class="gallery-grid-3">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/bc79be166646063.68b9e6216b220.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/bc79be166646063.68b9e6216b220.png&output=webp&q=90" alt="Mockup Instagram 1" class="img-fluid img-contain" style="aspect-ratio:3/4;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/0cb9c3166646063.68b9e62168c8a.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/0cb9c3166646063.68b9e62168c8a.png&output=webp&q=90" alt="Mockup Instagram 2" class="img-fluid img-contain" style="aspect-ratio:3/4;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/4b0402166646063.68b9e62169fb3.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/4b0402166646063.68b9e62169fb3.png&output=webp&q=90" alt="Mockup Instagram 3" class="img-fluid img-contain" style="aspect-ratio:3/4;"/></a>
+
+    </div>
+
+    <div style="margin-top: 20px;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/8f27b9166646063.641b9aaa28d7d.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/8f27b9166646063.641b9aaa28d7d.png&output=webp&q=90" alt="Mockup Lata / Embalagem" class="img-fluid img-contain" style="aspect-ratio:21/9;"/></a>
+    </div>
+
+    <div class="grid-2-col" style="margin-top: 50px; border-top: 1px dashed rgba(18,32,59,.7); padding-top: 40px;">
+      <div class="text-panel">
+        <h2>04. Aprendizados</h2>
+        <p>O projeto reforçou a importância de construir marcas pessoais a partir da tradução estratégica da personalidade do cliente, utilizando o design como ferramenta de conexão emocional e confiança.</p>
+      </div>
+      <div class="text-panel">
+        <h2>05. Evolução Futura</h2>
+        <p>Uma expansão natural do projeto incluiria o desenvolvimento de diretrizes mais amplas de conteúdo e desdobramentos para experiências presenciais e materiais educacionais, ampliando a atuação da marca em diferentes contextos.</p>
+      </div>
+    </div>
+    <div class="page-num">SYS::01</div>
+  </article>
+
+
+  <!-- ══════════════════════════════════════════
+       PROJETO 02 — UNAMA 2025.1
+  ═══════════════════════════════════════════ -->
+  <article class="project-card">
+    <div class="accent-bar"></div>
+
+    <header class="project-header">
+      <div class="coord" style="margin-bottom: 10px;">SYS::02 // COMUNICAÇÃO INSTITUCIONAL E EVENTOS</div>
+      <h1>UNAMA <span class="accent">2025.1</span></h1>
+      <span class="subtitle">Comunicação Institucional</span>
+      <div class="tags">
+        <span class="tag">Criação de Peças</span>
+        <span class="tag">Identidade de Eventos</span>
+        <span class="tag">IA Generativa</span>
+      </div>
+    </header>
+
+    <div style="margin-bottom: 40px;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7f5025232400939.689b7e7ee4f84.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/7f5025232400939.689b7e7ee4f84.png&output=webp&q=90" alt="Capa Projeto UNAMA" class="img-fluid"/></a>
+    </div>
+
+    <div class="grid-2-col">
+      <div class="text-panel">
+        <h2>01. O Problema // Contexto</h2>
+        <p>A UNAMA já possuía presença digital consolidada e campanhas institucionais anuais definidas. No entanto, havia dificuldade em manter consistência visual nas aplicações locais, além de um desequilíbrio entre conteúdo institucional e comunicação voltada ao público jovem.</p>
+        <p>A produção visual frequentemente se limitava a variações de paleta institucional, com pouca exploração da identidade das campanhas anuais.</p>
+      </div>
+      <div class="text-panel">
+        <h2>02. Processo Híbrido</h2>
+        <p>As ideias iniciam no papel, por meio de rascunhos e estudos de composição, que posteriormente orientam o uso de ferramentas digitais e inteligência artificial generativa.</p>
+        <div class="highlight-box">
+          <p>A IA é utilizada como ferramenta de direção visual, não como atalho, permitindo construir personagens e cenários alinhados à diversidade regional sem recorrer a estereótipos caricatos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-grid-3">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/a83b1e232400939.689b92466ba47.jpeg" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/a83b1e232400939.689b92466ba47.jpeg&output=webp&q=90" alt="Processo de Rascunho 1" class="img-fluid" style="aspect-ratio:4/3;object-fit:cover;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/f8e729232400939.689b92466c0ca.jpeg" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/f8e729232400939.689b92466c0ca.jpeg&output=webp&q=90" alt="Processo de Rascunho 2" class="img-fluid" style="aspect-ratio:4/3;object-fit:cover;"/></a>
+      <div class="img-fluid" style="aspect-ratio:4/3;overflow:hidden;display:flex;justify-content:center;align-items:center;padding:0;">
+        <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/ea877a232400939.689b92466c705.jpeg" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/ea877a232400939.689b92466c705.jpeg&output=webp&q=90" alt="Processo de Rascunho 3" style="width:150%;height:150%;max-width:none;object-fit:cover;transform:rotate(-90deg);"/></a>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/a276df232400939.689b80de9d862.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/a276df232400939.689b80de9d862.png&output=webp&q=90" alt="Composição Visual — Pôster Principal" class="img-fluid"/></a>
+    </div>
+
+    <div class="section-divider"><span>03 // Resultado e Impacto</span></div>
+
+    <div class="text-panel">
+      <p>A unidade UNAMA Belém consolidou uma comunicação visual mais consistente e reconhecível, tornando-se referência interna entre as unidades da região Norte e dentro do grupo educacional. Eventos como o <em>Acolhimento volta às aulas</em> destacaram-se em engajamento e participação de público.</p>
+    </div>
+
+    <div style="margin: 30px 0;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d25579232400939.689b80de9e198.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d25579232400939.689b80de9e198.png&output=webp&q=90" alt="Key Visual UNAMA Geek" class="img-fluid"/></a>
+    </div>
+
+    <div class="gallery-grid-4">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/f180de232400939.689b92475b3e5.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/f180de232400939.689b92475b3e5.png&output=webp&q=90" alt="Peça Digital 1" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/7470b4232400939.689b92475bb89.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/7470b4232400939.689b92475bb89.png&output=webp&q=90" alt="Peça Digital 2" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/01a307232400939.689b92475cab5.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/01a307232400939.689b92475cab5.png&output=webp&q=90" alt="Peça Digital 3" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/83a221232400939.689b92475a0ea.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/83a221232400939.689b92475a0ea.png&output=webp&q=90" alt="Peça Digital 4" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/3752ad232400939.689b92497a9cb.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/3752ad232400939.689b92497a9cb.png&output=webp&q=90" alt="Peça Digital 5" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/cb9709232400939.689b924977338.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/cb9709232400939.689b924977338.png&output=webp&q=90" alt="Peça Digital 6" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/59a8a9232400939.689b92497a286.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/59a8a9232400939.689b92497a286.png&output=webp&q=90" alt="Peça Digital 7" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/26f883232400939.689b9249796d1.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/26f883232400939.689b9249796d1.png&output=webp&q=90" alt="Peça Digital 8" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+    </div>
+
+    <div style="margin-top: 30px; margin-bottom: 20px;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/80b14b232400939.689b80de9ea0e.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/80b14b232400939.689b80de9ea0e.png&output=webp&q=90" alt="Key Visual UNAMA 2" class="img-fluid"/></a>
+    </div>
+
+    <div class="gallery-grid">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/256bbd232400939.689b80de9f49d.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/256bbd232400939.689b80de9f49d.png&output=webp&q=90" alt="Aplicação Ampla 1" class="img-fluid img-contain" style="aspect-ratio:16/9;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c3e8c6232400939.689b80de9fc11.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c3e8c6232400939.689b80de9fc11.png&output=webp&q=90" alt="Aplicação Ampla 2" class="img-fluid img-contain" style="aspect-ratio:16/9;"/></a>
+    </div>
+
+    <div class="grid-2-col" style="margin-top: 50px; border-top: 1px dashed rgba(18,32,59,.7); padding-top: 40px;">
+      <div class="text-panel">
+        <h2>04. Aprendizados</h2>
+        <p>O projeto aprofundou a aplicação estratégica da inteligência artificial como ferramenta de direção criativa, integrando rascunho manual e tecnologia para gerar soluções alinhadas ao contexto institucional. Também ampliou experiência em produção gráfica para diferentes formatos e escalas.</p>
+      </div>
+      <div class="text-panel">
+        <h2>05. Evolução Futura</h2>
+        <p>Uma etapa seguinte envolveria sistematizar ainda mais os processos visuais desenvolvidos, consolidando diretrizes internas que possam servir de referência para outras unidades da instituição.</p>
+      </div>
+    </div>
+    <div class="page-num">SYS::02</div>
+  </article>
+
+
+  <!-- ══════════════════════════════════════════
+       PROJETO 03 — PET PLENO
+  ═══════════════════════════════════════════ -->
+  <article class="project-card">
+    <div class="accent-bar"></div>
+
+    <header class="project-header">
+      <div class="coord" style="margin-bottom: 10px;">SYS::03 // IDENTIDADE VISUAL PARA PETSHOP DE BAIRRO</div>
+      <h1>Pet <span class="accent">Pleno</span></h1>
+      <span class="subtitle">Branding para Petshop de Bairro</span>
+      <div class="tags">
+        <span class="tag">Branding Autoral</span>
+        <span class="tag">Identidade Regional</span>
+        <span class="tag">Aplicações Físicas</span>
+      </div>
+    </header>
+
+    <div style="margin-bottom: 40px;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/4ebc7b186721493.657a40eea0f6e.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/4ebc7b186721493.657a40eea0f6e.png&output=webp&q=90" alt="Capa Projeto Pet Pleno" class="img-fluid"/></a>
+    </div>
+
+    <div class="grid-2-col">
+      <div class="text-panel">
+        <h2>01. O Problema // Contexto</h2>
+        <p>Projeto conceitual desenvolvido como estudo de construção de marca para um petshop localizado num bairro popular e movimentado de Belém. O desafio era criar uma marca que dialogasse com o público popular sem perder organização e credibilidade.</p>
+        <p>Negócios de bairro muitas vezes oscilam entre dois extremos: informalidade excessiva ou tentativa de sofisticação que distancia o público local.</p>
+      </div>
+      <div class="text-panel">
+        <h2>02. Direção Conceitual</h2>
+        <p>A promessa central da marca foi definida como "Cuidado que transborda amor". A tipografia <em>Chewy</em> foi escolhida para o logotipo pelo seu aspeto arredondado e amigável. A inserção de uma pata dentro da letra "P" reforça reconhecimento imediato.</p>
+        <p>A paleta foi estruturada para equilibrar diversão e confiança: tons de verde vibrante (energia), verde equilibrado (saúde), e azuis profundos (profissionalismo).</p>
+      </div>
+    </div>
+
+    <div class="gallery-grid">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/5e995d186721493.657a40eea40fe.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/5e995d186721493.657a40eea40fe.png&output=webp&q=90" alt="Construção do Logotipo e Tipografia" class="img-fluid"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/9a6b8e186721493.657a40eea1d55.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/9a6b8e186721493.657a40eea1d55.png&output=webp&q=90" alt="Paleta de Cores e Elementos" class="img-fluid"/></a>
+    </div>
+
+    <div class="section-divider"><span>03 // Resultado e Impacto</span></div>
+
+    <div class="text-panel">
+      <p>A identidade foi aplicada como um sistema completo, desde uniformes e placas de sinalização para garantir visibilidade no ambiente urbano, até posts para redes sociais. Como estudo autoral, o projeto consolidou uma metodologia pessoal de construção de marca voltada para negócios populares.</p>
+    </div>
+
+    <div class="continuous-wrapper" style="margin-top: 30px;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/ea8d2c186721493.657a40eea61ef.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/ea8d2c186721493.657a40eea61ef.png&output=webp&q=90" alt="Mockup Fachada do Petshop" class="img-continuous"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7ced2b186721493.657a40eea2e8a.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/7ced2b186721493.657a40eea2e8a.png&output=webp&q=90" alt="Mockup Uniforme" class="img-continuous"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/a85819186721493.657a40eea5030.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/a85819186721493.657a40eea5030.png&output=webp&q=90" alt="Mockup Papelaria e Cartões" class="img-continuous"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/e89257186721493.657a40eea71c3.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/e89257186721493.657a40eea71c3.png&output=webp&q=90" alt="Mockup Ecobag e Brindes" class="img-continuous"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/19c3d5186721493.657a40eea01b7.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/19c3d5186721493.657a40eea01b7.png&output=webp&q=90" alt="Mockup Redes Sociais" class="img-continuous"/></a>
+    </div>
+
+    <div class="grid-2-col" style="margin-top: 50px; border-top: 1px dashed rgba(18,32,59,.7); padding-top: 40px;">
+      <div class="text-panel">
+        <h2>04. Aprendizados</h2>
+        <p>A experiência aprofundou o uso estratégico da inteligência artificial no processo criativo, integrando rascunho, direção visual e geração de imagens como parte de um fluxo estruturado de desenvolvimento.</p>
+      </div>
+      <div class="text-panel">
+        <h2>05. Evolução Futura</h2>
+        <p>Uma expansão natural incluiria desdobramentos em embalagens, campanhas promocionais sazonais e diretrizes completas de comunicação para consolidação da marca no ambiente físico e digital.</p>
+      </div>
+    </div>
+    <div class="page-num">SYS::03</div>
+  </article>
+
+
+  <!-- ══════════════════════════════════════════
+       PROJETO 04 — ILUSTRAÇÃO FLAT FLUIDA
+  ═══════════════════════════════════════════ -->
+  <article class="project-card">
+    <div class="accent-bar"></div>
+
+    <header class="project-header">
+      <div class="coord" style="margin-bottom: 10px;">SYS::04 // IDENTIDADE VISUAL EXPERIMENTAL</div>
+      <h1>Ilustração <span class="accent">Flat Fluida</span></h1>
+      <span class="subtitle">Direção Visual Autoral</span>
+      <div class="tags">
+        <span class="tag">Direção Visual</span>
+        <span class="tag">Ilustração Vetorial</span>
+        <span class="tag">Projeto Autoral</span>
+      </div>
+    </header>
+
+    <div style="margin-bottom: 40px;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/fa6fb8233434635.68af55ce081ba.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/fa6fb8233434635.68af55ce081ba.png&output=webp&q=90" alt="Capa Ilustração Flat Fluida" class="img-fluid"/></a>
+    </div>
+
+    <div class="grid-2-col">
+      <div class="text-panel">
+        <h2>01. O Problema // Contexto</h2>
+        <p>Havia a necessidade de desenvolver uma linguagem visual mais sintética e institucional, adequada a projetos de design gráfico estratégico, afastando-se de técnicas texturizadas ou estilos mangá.</p>
+        <div class="highlight-box">
+          <p><strong>Objetivo:</strong> Desenvolver uma identidade visual baseada em ilustração vetorial flat fluida, capaz de comunicar conceitos narrativos de forma acessível, moderna e funcional em diferentes plataformas.</p>
+        </div>
+      </div>
+      <div class="text-panel">
+        <h2>02. Processo e Linguagem</h2>
+        <p>O processo iniciou com exploração manual de composições no sketchbook. O tema central foi "intercâmbio" como metáfora para transformação e conexão.</p>
+        <p>A opção pelo flat fluido elimina volumes e texturas, concentrando a atenção na composição, na cor (azuis para confiança, verdes para renovação) e no conceito. A tipografia <em>Actay</em> foi escolhida para equilibrar impacto e legibilidade.</p>
+      </div>
+    </div>
+
+    <div class="gallery-grid-3">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/17b4a5233434635.68af55ca04335.jpeg" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/17b4a5233434635.68af55ca04335.jpeg&output=webp&q=90" alt="Processo de Rascunho 1" class="img-fluid" style="aspect-ratio:4/3;object-fit:cover;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/8a912a233434635.68af55ca03a8c.jpeg" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/8a912a233434635.68af55ca03a8c.jpeg&output=webp&q=90" alt="Processo de Rascunho 2" class="img-fluid" style="aspect-ratio:4/3;object-fit:cover;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/73e974233434635.68af55ca033b9.jpeg" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/73e974233434635.68af55ca033b9.jpeg&output=webp&q=90" alt="Processo de Rascunho 3" class="img-fluid" style="aspect-ratio:4/3;object-fit:cover;"/></a>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/28fe02233434635.68af55ce08e61.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/28fe02233434635.68af55ce08e61.png&output=webp&q=90" alt="Composição Visual Vetor" class="img-fluid"/></a>
+    </div>
+
+    <div class="section-divider"><span>03 // Resultado e Impacto</span></div>
+
+    <div class="text-panel">
+      <p>A identidade foi aplicada em diferentes escalas, desde outdoors para validar impacto visual em grande formato, até peças para redes sociais estruturadas para consumo rápido. A combinação entre ilustração, tipografia e paleta cria um sistema visual replicável que pode ser expandido para campanhas educacionais ou culturais.</p>
+    </div>
+
+    <div style="margin: 30px 0;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/1400/41e20d233434635.68af55ce087b1.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/1400/41e20d233434635.68af55ce087b1.png&output=webp&q=90" alt="Aplicação Outdoor" class="img-fluid"/></a>
+    </div>
+
+    <div class="gallery-grid-4">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/3b8caf233434635.68af55cb15fc5.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/3b8caf233434635.68af55cb15fc5.png&output=webp&q=90" alt="Peça Digital 1" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/3012d5233434635.68af55cb15221.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/3012d5233434635.68af55cb15221.png&output=webp&q=90" alt="Peça Digital 2" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/4e03a3233434635.68af55cb1695c.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/4e03a3233434635.68af55cb1695c.png&output=webp&q=90" alt="Peça Digital 3" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/f1cd85233434635.68af55cb14313.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/f1cd85233434635.68af55cb14313.png&output=webp&q=90" alt="Peça Digital 4" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/1b405a233434635.68af55cb159d7.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/1b405a233434635.68af55cb159d7.png&output=webp&q=90" alt="Peça Digital 5" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/9a6223233434635.68af55cb14953.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/9a6223233434635.68af55cb14953.png&output=webp&q=90" alt="Peça Digital 6" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/a54126233434635.68af55ccc4e4f.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/a54126233434635.68af55ccc4e4f.png&output=webp&q=90" alt="Peça Digital 7" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e187b4233434635.68af55ccc539f.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/e187b4233434635.68af55ccc539f.png&output=webp&q=90" alt="Peça Digital 8" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+    </div>
+
+    <div class="gallery-grid-3" style="margin-top: 16px;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/5be3c2233434635.68af55cc289eb.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/5be3c2233434635.68af55cc289eb.png&output=webp&q=90" alt="Peça Digital 9"  class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/6cad3e233434635.68af55cc29269.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/6cad3e233434635.68af55cc29269.png&output=webp&q=90" alt="Peça Digital 10" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6f0e9233434635.68af55cc298f0.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6f0e9233434635.68af55cc298f0.png&output=webp&q=90" alt="Peça Digital 11" class="img-fluid img-contain" style="aspect-ratio:1/1;"/></a>
+    </div>
+
+    <div style="margin-top: 40px; display:flex; flex-direction:column; gap:30px;">
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2cb16b233434635.68af55cd4a596.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2cb16b233434635.68af55cd4a596.png&output=webp&q=90" alt="Aplicação Ampla 1" class="img-fluid"/></a>
+      <a href="https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/cb65d1233434635.68af55ce09a18.png" target="_blank" rel="noopener" style="display:block;"><img src="https://wsrv.nl/?url=https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/cb65d1233434635.68af55ce09a18.png&output=webp&q=90" alt="Aplicação Ampla 2" class="img-fluid"/></a>
+    </div>
+
+    <div class="grid-2-col" style="margin-top: 50px; border-top: 1px dashed rgba(18,32,59,.7); padding-top: 40px;">
+      <div class="text-panel">
+        <h2>04. Aprendizados</h2>
+        <ul style="font-family:var(--mono);font-size:13px;color:var(--paper);opacity:.88;margin-left:18px;line-height:1.75;">
+          <li style="margin-bottom:10px;">Tradução de conceitos narrativos em sistemas visuais consistentes.</li>
+          <li style="margin-bottom:10px;">Construção de identidade ilustrada funcional em múltiplas escalas.</li>
+          <li>Equilíbrio entre expressão artística e estratégia de comunicação.</li>
+        </ul>
+      </div>
+      <div class="text-panel">
+        <h2>05. Evolução Futura</h2>
+        <p>A linguagem desenvolvida pode ser expandida para campanhas educacionais, culturais ou institucionais, fortalecendo a integração entre ilustração autoral e branding estratégico.</p>
+      </div>
+    </div>
+    <div class="page-num">SYS::04</div>
+  </article>
+
+
+  <!-- ══════════════════════════════════════════
+       CONTATO
+  ═══════════════════════════════════════════ -->
+  <section class="project-card contact-section" style="border-color: var(--green); margin-bottom: 40px; padding: 60px 40px;">
+    <div class="accent-bar"></div>
+
+    <!-- Orbital mini decoration -->
+    <svg style="position:absolute;top:20px;right:30px;width:120px;height:120px;opacity:.12;pointer-events:none;" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="60" cy="60" rx="55" ry="20" fill="none" stroke="#14f48f" stroke-width="1.2" stroke-dasharray="8,6"/>
+      <circle cx="60" cy="60" r="14" fill="#12203b"/>
+      <circle cx="60" cy="60" r="8"  fill="#10525e"/>
+      <circle cx="60" cy="60" r="4"  fill="#00a59e"/>
+    </svg>
+
+    <div class="contact-title">
+      Prax Rodrigues <span>// Contato</span>
+    </div>
+    <p class="contact-sub">CONECTE-SE // SYS::CONTACT_READY</p>
+
+    <div class="contact-grid">
+      <a href="https://wa.me/5591981384275"          target="_blank" class="contact-btn">WHATSAPP // 91981384275</a>
+      <a href="https://instagram.com/praxrodrigues"  target="_blank" class="contact-btn">INSTAGRAM // @praxrodrigues</a>
+      <a href="https://linkedin.com/in/rimaspraxedes" target="_blank" class="contact-btn">LINKEDIN // rimaspraxedes</a>
+      <a href="https://behance.net/praxrodrigues"    target="_blank" class="contact-btn">BEHANCE // praxrodrigues</a>
+    </div>
+
+    <!-- Footer signature -->
+    <div style="margin-top:50px; padding-top:20px; border-top:1px dashed rgba(18,32,59,.6); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <span class="coord">RIMAS PRAXEDES // DESIGNER GRÁFICO // BLM-PA-BR</span>
+      <span class="coord">© 2025 — TODOS OS DIREITOS RESERVADOS</span>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<script>
+// fallback para imagens que falham carregar
+document.querySelectorAll('img').forEach(img => {
+  img.loading = 'lazy';
+  img.onerror = function() {
+    this.style.cssText = 'min-height:120px;display:flex;align-items:center;justify-content:center;background:#00202c;border:1px dashed #12203b;';
+    this.alt = '[ ' + (this.alt || 'imagem') + ' ]';
+    this.removeAttribute('src');
+  };
+});
+</script>
+<script>
+document.querySelectorAll('.img-fluid, .img-continuous').forEach(function(img) {
+  img.style.cursor = 'zoom-in';
+  img.addEventListener('click', function() {
+    // extract original behance url from wsrv proxy
+    var src = this.src;
+    var match = src.match(/wsrv\.nl\/\?url=([^&]+)/);
+    var url = match ? decodeURIComponent(match[1]) : src;
+    window.open(url, '_blank', 'noopener');
+  });
+});
+</script>
+</body>
+</html>
